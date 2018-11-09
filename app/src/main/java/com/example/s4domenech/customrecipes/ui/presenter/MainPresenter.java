@@ -37,8 +37,8 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
         });
     }
 
-    public void onRecipeClicked() {
-        navigator.navigateToDetailRecipeActivity();
+    public void onRecipeClicked(Recipe recipe) {
+        navigator.navigateToDetailRecipeActivity(recipe);
     }
 
     public void onAddButtonClicked() {
@@ -51,6 +51,6 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
 
     public interface navigator {
         void navigateToAddActivity();
-        void navigateToDetailRecipeActivity();
+        void navigateToDetailRecipeActivity(Recipe recipe);
     }
 }

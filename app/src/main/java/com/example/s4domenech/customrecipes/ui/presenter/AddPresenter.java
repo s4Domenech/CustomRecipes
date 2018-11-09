@@ -1,7 +1,12 @@
 package com.example.s4domenech.customrecipes.ui.presenter;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
@@ -26,11 +31,15 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
 
     }
 
-    public void ImageButtonClicked() {
-
+    public void imageButtonClicked() {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            view.takePhoto();
+        } else {
+            view.showPermissions();
+        }
     }
 
-    public void AcceptButtonClicked(Bitmap bitmap, String name, String steps) {
+    public void acceptButtonClicked(Bitmap bitmap, String name, String steps) {
         Recipe recipe = new Recipe();
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -58,12 +67,21 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
         });
     }
 
-    public void CancelButtonClicked() {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, int REQUEST_CAMERA_PERMISSION) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                view.takePhoto();
+            }
+        }
+    }
+
+    public void cancelButtonClicked() {
         navigator.close();
     }
 
     public interface view {
-
+        void showPermissions();
+        void takePhoto();
     }
 
     public interface  navigator {

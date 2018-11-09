@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
@@ -17,6 +16,8 @@ import com.example.s4domenech.customrecipes.R;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainPresenter.view, MainPresenter.navigator {
+
+    static final int ADD_RECIPE = 1;
 
     MainPresenter presenter;
 
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
         adapter = new RecipeAdapter(recipes, new RecipeAdapter.OnRecipeClicked() {
             @Override
             public void recipeClicked(Recipe recipe) {
-                presenter.onRecipeClicked();
+                presenter.onRecipeClicked(recipe);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -71,11 +72,23 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
 
     @Override
     public void navigateToAddActivity() {
-        startActivity(new Intent(this, AddActivity.class));
+        startActivityForResult(new Intent(this, AddActivity.class), ADD_RECIPE);
     }
 
     @Override
-    public void navigateToDetailRecipeActivity() {
+    public void navigateToDetailRecipeActivity(Recipe recipe) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println(requestCode + " / " + resultCode);
+        if (requestCode == ADD_RECIPE) {
+            if (resultCode == RESULT_OK) {
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 }
