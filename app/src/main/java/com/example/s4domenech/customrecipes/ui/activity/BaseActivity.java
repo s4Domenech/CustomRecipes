@@ -1,4 +1,4 @@
-package com.example.s4domenech.customrecipes.Activity;
+package com.example.s4domenech.customrecipes.ui.activity;
 
 import android.os.Bundle;
 

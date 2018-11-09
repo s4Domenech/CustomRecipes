@@ -1,4 +1,4 @@
-package com.example.s4domenech.customrecipes.DataBase;
+package com.example.s4domenech.customrecipes.datasource.database;
 
 @com.raizlabs.android.dbflow.annotation.Database(name = Database.NAME, version = Database.VERSION)
 public class Database {

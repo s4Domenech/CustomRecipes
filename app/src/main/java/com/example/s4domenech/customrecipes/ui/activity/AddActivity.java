@@ -1,12 +1,15 @@
-package com.example.s4domenech.customrecipes.Activity;
+package com.example.s4domenech.customrecipes.ui.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.example.s4domenech.customrecipes.Presenter.AddPresenter;
+import com.example.s4domenech.customrecipes.datasource.DBImpl;
+import com.example.s4domenech.customrecipes.ui.presenter.AddPresenter;
 import com.example.s4domenech.customrecipes.R;
 
 public class AddActivity extends BaseActivity implements AddPresenter.view, AddPresenter.navigator {
@@ -21,12 +24,10 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new AddPresenter(this);
+        presenter = new AddPresenter(this, new DBImpl(this));
 
         presenter.setView(this);
         presenter.setNavigator(this);
-
-        presenter.initialize();
 
         ibRecipe = findViewById(R.id.ib_recipe);
         ibRecipe.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +41,9 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.AcceptButtonClicked();
+                Bitmap bitmap = ((BitmapDrawable)ibRecipe.getDrawable()).getBitmap();
+
+                presenter.AcceptButtonClicked(bitmap, etName.getText().toString(), etSteps.getText().toString());
             }
         });
 
@@ -54,6 +57,8 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
 
         etName = findViewById(R.id.et_name);
         etSteps = findViewById(R.id.et_steps);
+
+        presenter.initialize();
     }
 
     @Override

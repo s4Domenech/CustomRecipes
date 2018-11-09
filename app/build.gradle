@@ -30,4 +30,5 @@ dependencies {
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.0.3"
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:4.0.3"
     implementation "com.github.Raizlabs.DBFlow:dbflow:4.0.3"
+    implementation 'com.android.support:design:28.0.0'
 }

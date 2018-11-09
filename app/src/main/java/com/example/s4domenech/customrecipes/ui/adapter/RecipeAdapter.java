@@ -1,5 +1,7 @@
-package com.example.s4domenech.customrecipes.Adapter;
+package com.example.s4domenech.customrecipes.ui.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.s4domenech.customrecipes.Model.Recipe;
 import com.example.s4domenech.customrecipes.R;
+import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
-    ArrayList<Recipe> recipes;
+    List<Recipe> recipes;
     OnRecipeClicked listener;
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
@@ -28,7 +30,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
     }
 
-    public RecipeAdapter(ArrayList<Recipe> recipes, OnRecipeClicked listener) {
+    public RecipeAdapter(List<Recipe> recipes, OnRecipeClicked listener) {
         this.recipes = recipes;
         this.listener = listener;
     }
@@ -43,7 +45,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, final int position) {
         holder.name.setText(recipes.get(position).getName());
-        holder.photo.setImageBitmap(recipes.get(position).getPhoto());
+
+        byte[] byteArray = recipes.get(position).getImageBlob().getBlob();
+        Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+
+        holder.photo.setImageBitmap(bm);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

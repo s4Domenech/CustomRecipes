@@ -1,4 +1,4 @@
-package com.example.s4domenech.customrecipes.Presenter;
+package com.example.s4domenech.customrecipes.ui.presenter;
 
 public abstract class Presenter<T1, T2> {
 

@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddActivity"
+    tools:context=".ui.activity.AddActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <ImageButton
         android:id="@+id/ib_recipe"
         android:layout_width="0dp"
         android:layout_height="156dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:src="@mipmap/ic_launcher"
+        android:layout_marginStart="24dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/dolphin"
         app:layout_constraintBottom_toTopOf="@+id/et_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
