@@ -1,11 +1,19 @@
 package com.example.s4domenech.customrecipes.ui.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
@@ -14,7 +22,6 @@ import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.ui.adapter.RecipeAdapter;
 import com.example.s4domenech.customrecipes.ui.presenter.MainPresenter;
 import com.example.s4domenech.customrecipes.R;
-import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 
 import java.util.List;
 
@@ -107,5 +114,41 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
                 startActivity(getIntent());
             }
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+
+        SearchView searchView = null;
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            EditText txtSearch = (searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text));
+            txtSearch.setHint("Search...");
+            txtSearch.setHintTextColor(Color.BLACK);
+
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    presenter.onSearchSubmit(s);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    presenter.onSearchSubmit(s);
+                    return false;
+                }
+            });
+        }
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

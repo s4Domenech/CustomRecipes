@@ -8,6 +8,7 @@ public interface DB {
 
     void saveRecipe(Recipe recipe, GeneralListener listener);
     void queryRecipes(QueryListener listener);
+    void queryRecipes(String query, QueryListener listener);
     void deleteRecipe(Recipe recipe, GeneralListener listener);
     void updateRecipe(Recipe recipe, GeneralListener listener);
 

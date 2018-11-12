@@ -38,6 +38,17 @@ public class DBImpl implements DB {
     }
 
     @Override
+    public void queryRecipes(String query, QueryListener listener) {
+        List<Recipe> recipes = new Select().from(Recipe.class).queryList();
+        if (recipes.size() != 0) {
+            recipes = new Select().from(Recipe.class).where(Recipe_Table.name.like("%" + query + "%")).queryList();
+            listener.onSuccess(recipes);
+        } else {
+            listener.onError("Empty");
+        }
+    }
+
+    @Override
     public void deleteRecipe(Recipe recipe, GeneralListener listener) {
         if (SQLite.select().from(Recipe.class).where(Recipe_Table.id.eq(recipe.getId())).count() != 0) {
             SQLite.delete().from(Recipe.class).where(Recipe_Table.id.eq(recipe.getId())).async().execute();

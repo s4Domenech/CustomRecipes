@@ -37,6 +37,20 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
         });
     }
 
+    public void onSearchSubmit(String query) {
+        database.queryRecipes(query, new DB.QueryListener() {
+            @Override
+            public void onSuccess(List<Recipe> recipes) {
+                view.showRecipes(recipes);
+            }
+
+            @Override
+            public void onError(String msg) {
+                view.showMessage(msg);
+            }
+        });
+    }
+
     public void onRecipeClicked(Recipe recipe) {
         navigator.navigateToDetailRecipeActivity(recipe);
     }
