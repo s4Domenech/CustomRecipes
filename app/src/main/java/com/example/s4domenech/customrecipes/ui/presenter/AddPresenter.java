@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
+import com.example.s4domenech.customrecipes.usecase.BlobConverter;
+import com.example.s4domenech.customrecipes.usecase.CheckPermissions;
 import com.example.s4domenech.customrecipes.usecase.DB;
 import com.raizlabs.android.dbflow.data.Blob;
 
@@ -20,10 +22,14 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
     Context context;
 
     DB database;
+    CheckPermissions checkPermissions;
+    BlobConverter blobConverter;
 
-    public AddPresenter(Context context, DBImpl database) {
+    public AddPresenter(Context context, DBImpl database, CheckPermissions checkPermissions, BlobConverter blobConverter) {
         this.context = context;
         this.database = database;
+        this.checkPermissions = checkPermissions;
+        this.blobConverter = blobConverter;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
     }
 
     public void imageButtonClicked() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        if (checkPermissions.isPermissionGranted(Manifest.permission.CAMERA)) {
             view.takePhoto();
         } else {
             view.showPermissions();
@@ -42,11 +48,7 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
     public void acceptButtonClicked(Bitmap bitmap, String name, String steps) {
         Recipe recipe = new Recipe();
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        byte[] bArray = bos.toByteArray();
-        Blob blobImage = new Blob();
-        blobImage.setBlob(bArray);
+        Blob blobImage = blobConverter.bitmapToBlob(bitmap);
 
         recipe.setImageBlob(blobImage);
         recipe.setName(name);

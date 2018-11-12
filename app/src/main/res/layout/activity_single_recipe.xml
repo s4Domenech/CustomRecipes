@@ -4,88 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.AddActivity"
+    tools:context=".ui.activity.SingleRecipeActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <ImageButton
-        android:id="@+id/ib_recipe"
+    <ImageView
+        android:id="@+id/iv_recipe"
         android:layout_width="0dp"
-        android:layout_height="156dp"
+        android:layout_height="224dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:background="@color/colorAccent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/noimage"
-        app:layout_constraintBottom_toTopOf="@+id/et_name"
+        app:layout_constraintBottom_toTopOf="@+id/tv_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/noimage" />
 
-    <EditText
-        android:id="@+id/et_name"
+    <TextView
+        android:id="@+id/tv_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/et_steps"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ib_recipe" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_recipe" />
 
-    <EditText
-        android:id="@+id/et_steps"
+    <TextView
+        android:id="@+id/tv_steps"
         android:layout_width="0dp"
-        android:layout_height="145dp"
+        android:layout_height="106dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:ems="10"
-        android:hint="Steps"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ok"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/btn_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <Button
-        android:id="@+id/btn_ok"
+        android:id="@+id/btn_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Ok"
+        android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_steps" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_steps" />
 
     <Button
-        android:id="@+id/btn_cancel"
+        android:id="@+id/btn_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Cancel"
+        android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_ok"
-        app:layout_constraintTop_toBottomOf="@+id/et_steps" />
+        app:layout_constraintStart_toEndOf="@+id/btn_edit"
+        app:layout_constraintTop_toBottomOf="@+id/tv_steps" />
 
 </android.support.constraint.ConstraintLayout>

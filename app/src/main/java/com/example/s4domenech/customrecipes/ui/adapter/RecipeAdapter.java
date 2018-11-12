@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
+import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     List<Recipe> recipes;
     OnRecipeClicked listener;
+    BlobConverter blobConverter;
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -30,9 +32,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
     }
 
-    public RecipeAdapter(List<Recipe> recipes, OnRecipeClicked listener) {
+    public RecipeAdapter(List<Recipe> recipes, BlobConverter blobConverter, OnRecipeClicked listener) {
         this.recipes = recipes;
         this.listener = listener;
+        this.blobConverter = blobConverter;
     }
 
     @Override
@@ -46,8 +49,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(RecipeViewHolder holder, final int position) {
         holder.name.setText(recipes.get(position).getName());
 
-        byte[] byteArray = recipes.get(position).getImageBlob().getBlob();
-        Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+        Bitmap bm = blobConverter.blobToBitmap(recipes.get(position).getImageBlob());
 
         holder.photo.setImageBitmap(bm);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

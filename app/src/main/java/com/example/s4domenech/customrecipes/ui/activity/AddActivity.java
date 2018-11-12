@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
+import com.example.s4domenech.customrecipes.datasource.device.CheckPermissionsImpl;
 import com.example.s4domenech.customrecipes.ui.presenter.AddPresenter;
 import com.example.s4domenech.customrecipes.R;
 
@@ -32,7 +34,7 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new AddPresenter(this, new DBImpl(this));
+        presenter = new AddPresenter(this, new DBImpl(this), new CheckPermissionsImpl(this), new BlobConverterImpl());
 
         presenter.setView(this);
         presenter.setNavigator(this);

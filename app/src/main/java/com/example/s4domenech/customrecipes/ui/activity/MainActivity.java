@@ -7,17 +7,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.ui.adapter.RecipeAdapter;
 import com.example.s4domenech.customrecipes.ui.presenter.MainPresenter;
 import com.example.s4domenech.customrecipes.R;
+import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainPresenter.view, MainPresenter.navigator {
 
-    static final int ADD_RECIPE = 1;
+    static final int RESTART_ACTIVITY = 1;
 
     MainPresenter presenter;
 
@@ -61,7 +63,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
 
     @Override
     public void showRecipes(List<Recipe> recipes) {
-        adapter = new RecipeAdapter(recipes, new RecipeAdapter.OnRecipeClicked() {
+        adapter = new RecipeAdapter(recipes, new BlobConverterImpl(), new RecipeAdapter.OnRecipeClicked() {
             @Override
             public void recipeClicked(Recipe recipe) {
                 presenter.onRecipeClicked(recipe);
@@ -72,19 +74,23 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
 
     @Override
     public void navigateToAddActivity() {
-        startActivityForResult(new Intent(this, AddActivity.class), ADD_RECIPE);
+        startActivityForResult(new Intent(this, AddActivity.class), RESTART_ACTIVITY);
     }
 
     @Override
     public void navigateToDetailRecipeActivity(Recipe recipe) {
-
+        Intent intent = new Intent(this, SingleRecipeActivity.class);
+        intent.putExtra("id", recipe.getId());
+        intent.putExtra("name", recipe.getName());
+        intent.putExtra("steps", recipe.getSteps());
+        intent.putExtra("blobImage", recipe.getImageBlob().getBlob());
+        startActivityForResult(intent, RESTART_ACTIVITY);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode + " / " + resultCode);
-        if (requestCode == ADD_RECIPE) {
+        if (requestCode == RESTART_ACTIVITY) {
             if (resultCode == RESULT_OK) {
                 finish();
                 startActivity(getIntent());

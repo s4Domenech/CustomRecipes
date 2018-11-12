@@ -3,7 +3,10 @@
     package="com.example.s4domenech.customrecipes">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.AddActivity"></activity>
+        <activity android:name=".ui.activity.AddActivity" />
+        <activity android:name=".ui.activity.SingleRecipeActivity"></activity>
     </application>
 
 </manifest>
