@@ -53,17 +53,19 @@ public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.view,
         database.deleteRecipe(recipe, new DB.GeneralListener() {
             @Override
             public void onSuccess() {
+                view.showMessage("Deleted");
                 navigator.close();
             }
 
             @Override
             public void onError(String msg) {
-                System.out.println(msg);
+                view.showMessage(msg);
             }
         });
     }
 
     public interface view {
+        void showMessage(String error);
         void showImage(Bitmap bitmap);
         void showName(String name);
         void showSteps(String steps);

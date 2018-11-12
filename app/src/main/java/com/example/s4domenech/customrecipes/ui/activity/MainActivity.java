@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
@@ -64,6 +65,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
     @Override
     protected String titleToolbar() {
         return "Home";
+    }
+
+    @Override
+    public void showMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

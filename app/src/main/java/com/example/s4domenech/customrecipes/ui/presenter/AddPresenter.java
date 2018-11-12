@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
@@ -14,8 +12,6 @@ import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 import com.example.s4domenech.customrecipes.usecase.CheckPermissions;
 import com.example.s4domenech.customrecipes.usecase.DB;
 import com.raizlabs.android.dbflow.data.Blob;
-
-import java.io.ByteArrayOutputStream;
 
 public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navigator> {
 
@@ -57,13 +53,13 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
         database.saveRecipe(recipe, new DB.GeneralListener() {
             @Override
             public void onSuccess() {
-                System.out.println("Nice!");
+                view.showMessage("Success");
                 navigator.close();
             }
 
             @Override
             public void onError(String msg) {
-                System.out.println("Error");
+                view.showMessage(msg);
                 navigator.close();
             }
         });
@@ -82,6 +78,7 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
     }
 
     public interface view {
+        void showMessage(String error);
         void showPermissions();
         void takePhoto();
     }

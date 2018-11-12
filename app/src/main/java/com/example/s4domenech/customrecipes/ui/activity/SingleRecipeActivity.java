@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
@@ -66,6 +67,11 @@ public class SingleRecipeActivity extends BaseActivity implements SingleRecipePr
     @Override
     protected String titleToolbar() {
         return "Detail";
+    }
+
+    @Override
+    public void showMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

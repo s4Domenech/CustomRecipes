@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
@@ -76,6 +77,11 @@ public class EditRecipeActivity extends BaseActivity implements EditRecipePresen
     @Override
     protected String titleToolbar() {
         return "Edit";
+    }
+
+    @Override
+    public void showMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

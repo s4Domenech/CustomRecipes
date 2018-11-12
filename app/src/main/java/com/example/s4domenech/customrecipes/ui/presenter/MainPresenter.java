@@ -32,7 +32,7 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
 
             @Override
             public void onError(String msg) {
-                System.out.println(msg);
+                view.showMessage(msg);
             }
         });
     }
@@ -46,6 +46,7 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
     }
 
     public interface view {
+        void showMessage(String error);
         void showRecipes(List<Recipe> recipes);
     }
 

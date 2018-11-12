@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
@@ -79,6 +80,11 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
     @Override
     protected String titleToolbar() {
         return "Add";
+    }
+
+    @Override
+    public void showMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

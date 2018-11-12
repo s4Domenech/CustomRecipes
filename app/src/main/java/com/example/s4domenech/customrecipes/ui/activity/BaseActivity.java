@@ -13,6 +13,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(titleToolbar());
+        toolbar.setLogo(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
     }
 

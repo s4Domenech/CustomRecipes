@@ -57,12 +57,13 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
         database.updateRecipe(recipe, new DB.GeneralListener() {
             @Override
             public void onSuccess() {
+                view.showMessage("Updated");
                 navigator.closeRefresh();
             }
 
             @Override
             public void onError(String msg) {
-                System.out.println(msg);
+                view.showMessage(msg);
             }
         });
     }
@@ -80,6 +81,7 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
     }
 
     public interface view {
+        void showMessage(String error);
         void takePhoto();
         void showPermissions();
         void writeName(String name);
