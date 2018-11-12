@@ -62,6 +62,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
     }
 
     @Override
+    protected String titleToolbar() {
+        return "Home";
+    }
+
+    @Override
     public void showRecipes(List<Recipe> recipes) {
         adapter = new RecipeAdapter(recipes, new BlobConverterImpl(), new RecipeAdapter.OnRecipeClicked() {
             @Override

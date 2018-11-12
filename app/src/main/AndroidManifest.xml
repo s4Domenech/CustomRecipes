@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.AddActivity" />
-        <activity android:name=".ui.activity.SingleRecipeActivity"></activity>
+        <activity android:name=".ui.activity.SingleRecipeActivity" />
+        <activity android:name=".ui.activity.EditRecipeActivity"></activity>
     </application>
 
 </manifest>
