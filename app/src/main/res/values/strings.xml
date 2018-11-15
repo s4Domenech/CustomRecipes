@@ -15,4 +15,7 @@
     <string name="main_activity_name">Home</string>
     <string name="detail_activity_name">Detail</string>
     <string name="search">Search...</string>
+    <string name="success">Success</string>
+    <string name="updated">Updated</string>
+    <string name="deleted">Deleted</string>
 </resources>

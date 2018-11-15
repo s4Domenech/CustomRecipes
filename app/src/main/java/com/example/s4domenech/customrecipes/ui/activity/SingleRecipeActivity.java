@@ -2,25 +2,25 @@ package com.example.s4domenech.customrecipes.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.s4domenech.customrecipes.Extras;
+import com.example.s4domenech.customrecipes.Data;
 import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.ui.presenter.SingleRecipePresenter;
 
-import static com.example.s4domenech.customrecipes.ui.activity.MainActivity.RESTART_ACTIVITY;
+import static com.example.s4domenech.customrecipes.Data.RESTART_ACTIVITY;
 
-public class SingleRecipeActivity extends BaseActivity implements SingleRecipePresenter.view, SingleRecipePresenter.navigator {
+public class SingleRecipeActivity extends BaseActivity implements
+        SingleRecipePresenter.View,
+        SingleRecipePresenter.Navigator {
 
     SingleRecipePresenter presenter;
 
@@ -43,15 +43,15 @@ public class SingleRecipeActivity extends BaseActivity implements SingleRecipePr
         tvSteps.setMovementMethod(new ScrollingMovementMethod());
         btnEdit = findViewById(R.id.btn_edit);
         btnDelete = findViewById(R.id.btn_delete);
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.onEditButtonPressed();
             }
         });
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btnDelete.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.onDeleteButtonPressed();
             }
         });
@@ -93,10 +93,10 @@ public class SingleRecipeActivity extends BaseActivity implements SingleRecipePr
     @Override
     public void navigateToEditActivity(Recipe recipe) {
         Intent intent = new Intent(this, EditRecipeActivity.class);
-        intent.putExtra(Extras.ID, recipe.getId());
-        intent.putExtra(Extras.NAME, recipe.getName());
-        intent.putExtra(Extras.STEPS, recipe.getSteps());
-        intent.putExtra(Extras.IMAGE, recipe.getImageBlob().getBlob());
+        intent.putExtra(Data.ID, recipe.getId());
+        intent.putExtra(Data.NAME, recipe.getName());
+        intent.putExtra(Data.STEPS, recipe.getSteps());
+        intent.putExtra(Data.IMAGE, recipe.getImageBlob().getBlob());
         startActivityForResult(intent, RESTART_ACTIVITY);
     }
 

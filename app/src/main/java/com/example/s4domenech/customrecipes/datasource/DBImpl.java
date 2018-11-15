@@ -66,7 +66,10 @@ public class DBImpl implements DB {
     public void updateRecipe(Recipe recipe, GeneralListener listener) {
         if (SQLite.select().from(Recipe.class).where(Recipe_Table.id.eq(recipe.getId())).count() != 0) {
             SQLite.update(Recipe.class)
-                .set(Recipe_Table.imageBlob.eq(recipe.getImageBlob()), Recipe_Table.name.eq(recipe.getName()), Recipe_Table.steps.eq(recipe.getSteps()))
+                .set(
+                        Recipe_Table.imageBlob.eq(recipe.getImageBlob()),
+                        Recipe_Table.name.eq(recipe.getName()),
+                        Recipe_Table.steps.eq(recipe.getSteps()))
                 .where(Recipe_Table.id.eq(recipe.getId()))
                 .async()
                 .execute();

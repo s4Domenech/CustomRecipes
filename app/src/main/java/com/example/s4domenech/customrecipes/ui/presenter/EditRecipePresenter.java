@@ -3,14 +3,20 @@ package com.example.s4domenech.customrecipes.ui.presenter;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
+import com.example.s4domenech.customrecipes.Data;
+import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 import com.example.s4domenech.customrecipes.usecase.CheckPermissions;
 import com.example.s4domenech.customrecipes.usecase.DB;
 
-public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, EditRecipePresenter.navigator> {
+import static com.example.s4domenech.customrecipes.Data.REQUEST_CAMERA_PERMISSION;
+
+public class EditRecipePresenter extends Presenter<EditRecipePresenter.View, EditRecipePresenter.Navigator> {
 
     Context context;
 
@@ -20,7 +26,8 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
 
     Recipe recipe;
 
-    public EditRecipePresenter(Context context, BlobConverter blobConverter, DB database, CheckPermissions checkPermissions) {
+    public EditRecipePresenter(Context context, BlobConverter blobConverter,
+                               DB database, CheckPermissions checkPermissions) {
         this.context = context;
         this.blobConverter = blobConverter;
         this.database = database;
@@ -33,10 +40,10 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
     }
 
     public void onExtrasReceived(Intent intent) {
-        int id = intent.getExtras().getInt("id");
-        String name = intent.getExtras().getString("name");
-        String steps = intent.getExtras().getString("steps");
-        byte[] imageBytes = intent.getExtras().getByteArray("blobImage");
+        int id = intent.getExtras().getInt(Data.ID);
+        String name = intent.getExtras().getString(Data.NAME);
+        String steps = intent.getExtras().getString(Data.STEPS);
+        byte[] imageBytes = intent.getExtras().getByteArray(Data.IMAGE);
 
         recipe = new Recipe();
         recipe.setId(id);
@@ -57,7 +64,7 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
         database.updateRecipe(recipe, new DB.GeneralListener() {
             @Override
             public void onSuccess() {
-                view.showMessage("Updated");
+                view.showMessage(context.getString(R.string.updated));
                 navigator.closeRefresh();
             }
 
@@ -66,6 +73,16 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
                 view.showMessage(msg);
             }
         });
+    }
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                view.takePhoto();
+            }
+        }
     }
 
     public void onCancelButtonPressed() {
@@ -80,7 +97,7 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
         }
     }
 
-    public interface view {
+    public interface View {
         void showMessage(String error);
         void takePhoto();
         void showPermissions();
@@ -89,7 +106,7 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.view, Edi
         void putImage(Bitmap bitmap);
     }
 
-    public interface navigator {
+    public interface Navigator {
         void closeRefresh();
         void close();
     }

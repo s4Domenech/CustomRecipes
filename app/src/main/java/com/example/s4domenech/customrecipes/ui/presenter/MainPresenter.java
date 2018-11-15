@@ -8,7 +8,7 @@ import com.example.s4domenech.customrecipes.usecase.DB;
 
 import java.util.List;
 
-public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.navigator> {
+public class MainPresenter extends Presenter<MainPresenter.View, MainPresenter.Navigator> {
 
     Context context;
     DB database;
@@ -20,10 +20,10 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
 
     @Override
     public void initialize() {
-        LoadRecipes();
+        loadRecipes();
     }
 
-    void LoadRecipes() {
+    void loadRecipes() {
         database.queryRecipes(new DB.QueryListener() {
             @Override
             public void onSuccess(List<Recipe> recipes) {
@@ -59,12 +59,12 @@ public class MainPresenter extends Presenter<MainPresenter.view, MainPresenter.n
         navigator.navigateToAddActivity();
     }
 
-    public interface view {
+    public interface View {
         void showMessage(String error);
         void showRecipes(List<Recipe> recipes);
     }
 
-    public interface navigator {
+    public interface Navigator {
         void navigateToAddActivity();
         void navigateToDetailRecipeActivity(Recipe recipe);
     }

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import com.example.s4domenech.customrecipes.Data;
+import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 import com.example.s4domenech.customrecipes.usecase.DB;
 
-public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.view, SingleRecipePresenter.navigator> {
+public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.View, SingleRecipePresenter.Navigator> {
 
     Context context;
 
@@ -29,10 +31,10 @@ public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.view,
     }
 
     public void onExtrasReceived(Intent intent) {
-        int id = intent.getExtras().getInt("id");
-        String name = intent.getExtras().getString("name");
-        String steps = intent.getExtras().getString("steps");
-        byte[] imageBytes = intent.getExtras().getByteArray("blobImage");
+        int id = intent.getExtras().getInt(Data.ID);
+        String name = intent.getExtras().getString(Data.NAME);
+        String steps = intent.getExtras().getString(Data.STEPS);
+        byte[] imageBytes = intent.getExtras().getByteArray(Data.IMAGE);
 
         recipe = new Recipe();
         recipe.setId(id);
@@ -53,7 +55,7 @@ public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.view,
         database.deleteRecipe(recipe, new DB.GeneralListener() {
             @Override
             public void onSuccess() {
-                view.showMessage("Deleted");
+                view.showMessage(context.getString(R.string.deleted));
                 navigator.close();
             }
 
@@ -64,14 +66,14 @@ public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.view,
         });
     }
 
-    public interface view {
+    public interface View {
         void showMessage(String error);
         void showImage(Bitmap bitmap);
         void showName(String name);
         void showSteps(String steps);
     }
 
-    public interface navigator {
+    public interface Navigator {
         void navigateToEditActivity(Recipe recipe);
         void close();
     }

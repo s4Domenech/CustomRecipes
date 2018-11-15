@@ -13,7 +13,7 @@ public class BlobConverterImpl implements BlobConverter {
     @Override
     public Bitmap blobToBitmap(Blob blob) {
         byte[] byteArray = blob.getBlob();
-        return BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BlobConverterImpl implements BlobConverter {
 
     @Override
     public Bitmap byteToBitmap(byte[] byteArray) {
-        return BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
     @Override

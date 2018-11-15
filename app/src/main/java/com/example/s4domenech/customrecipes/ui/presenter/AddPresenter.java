@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
+import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.usecase.BlobConverter;
@@ -13,7 +14,9 @@ import com.example.s4domenech.customrecipes.usecase.CheckPermissions;
 import com.example.s4domenech.customrecipes.usecase.DB;
 import com.raizlabs.android.dbflow.data.Blob;
 
-public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navigator> {
+import static com.example.s4domenech.customrecipes.Data.REQUEST_CAMERA_PERMISSION;
+
+public class AddPresenter extends Presenter<AddPresenter.View, AddPresenter.Navigator> {
 
     Context context;
 
@@ -21,7 +24,8 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
     CheckPermissions checkPermissions;
     BlobConverter blobConverter;
 
-    public AddPresenter(Context context, DBImpl database, CheckPermissions checkPermissions, BlobConverter blobConverter) {
+    public AddPresenter(Context context, DBImpl database,
+                        CheckPermissions checkPermissions, BlobConverter blobConverter) {
         this.context = context;
         this.database = database;
         this.checkPermissions = checkPermissions;
@@ -53,7 +57,7 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
         database.saveRecipe(recipe, new DB.GeneralListener() {
             @Override
             public void onSuccess() {
-                view.showMessage("Success");
+                view.showMessage(context.getString(R.string.success));
                 navigator.close();
             }
 
@@ -65,7 +69,9 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
         });
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, int REQUEST_CAMERA_PERMISSION) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 view.takePhoto();
@@ -77,13 +83,13 @@ public class AddPresenter extends Presenter<AddPresenter.view, AddPresenter.navi
         navigator.close();
     }
 
-    public interface view {
+    public interface View {
         void showMessage(String error);
         void showPermissions();
         void takePhoto();
     }
 
-    public interface  navigator {
+    public interface Navigator {
         void close();
     }
 }

@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,10 +19,12 @@ import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.device.CheckPermissionsImpl;
 import com.example.s4domenech.customrecipes.ui.presenter.EditRecipePresenter;
 
-import static com.example.s4domenech.customrecipes.ui.activity.AddActivity.REQUEST_CAMERA_PERMISSION;
-import static com.example.s4domenech.customrecipes.ui.activity.AddActivity.REQUEST_IMAGE_CAPTURE;
+import static com.example.s4domenech.customrecipes.Data.REQUEST_CAMERA_PERMISSION;
+import static com.example.s4domenech.customrecipes.Data.REQUEST_IMAGE_CAPTURE;
 
-public class EditRecipeActivity extends BaseActivity implements EditRecipePresenter.view, EditRecipePresenter.navigator{
+public class EditRecipeActivity extends BaseActivity implements
+        EditRecipePresenter.View,
+        EditRecipePresenter.Navigator {
 
     EditRecipePresenter presenter;
 
@@ -35,32 +36,36 @@ public class EditRecipeActivity extends BaseActivity implements EditRecipePresen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new EditRecipePresenter(this, new BlobConverterImpl(), new DBImpl(this), new CheckPermissionsImpl(this));
+        presenter = new EditRecipePresenter(
+                this,
+                new BlobConverterImpl(),
+                new DBImpl(this),
+                new CheckPermissionsImpl(this));
         presenter.setView(this);
         presenter.setNavigator(this);
 
         ibRecipe = findViewById(R.id.ib_recipe);
-        ibRecipe.setOnClickListener(new View.OnClickListener() {
+        ibRecipe.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.onImageButtonClicked();
             }
         });
         etName = findViewById(R.id.et_name);
         etSteps = findViewById(R.id.et_steps);
         btnOk = findViewById(R.id.btn_ok);
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        btnOk.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Bitmap bitmap = ((BitmapDrawable)ibRecipe.getDrawable()).getBitmap();
+            public void onClick(android.view.View v) {
+                Bitmap bitmap = ((BitmapDrawable) ibRecipe.getDrawable()).getBitmap();
 
                 presenter.onAcceptButtonPressed(etName.getText().toString(), etSteps.getText().toString(), bitmap);
             }
         });
         btnCancel = findViewById(R.id.btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.onCancelButtonPressed();
             }
         });
@@ -95,6 +100,14 @@ public class EditRecipeActivity extends BaseActivity implements EditRecipePresen
     @Override
     public void showPermissions() {
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override

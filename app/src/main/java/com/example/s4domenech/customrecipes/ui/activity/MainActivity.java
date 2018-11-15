@@ -12,11 +12,10 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.s4domenech.customrecipes.Extras;
+import com.example.s4domenech.customrecipes.Data;
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
@@ -26,9 +25,9 @@ import com.example.s4domenech.customrecipes.R;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainPresenter.view, MainPresenter.navigator {
+import static com.example.s4domenech.customrecipes.Data.RESTART_ACTIVITY;
 
-    static final int RESTART_ACTIVITY = 1;
+public class MainActivity extends BaseActivity implements MainPresenter.View, MainPresenter.Navigator {
 
     MainPresenter presenter;
 
@@ -55,9 +54,9 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
         recyclerView.setLayoutManager(layoutManager);
 
         btnInsert = findViewById(R.id.btn_insert);
-        btnInsert.setOnClickListener(new View.OnClickListener() {
+        btnInsert.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.onAddButtonClicked();
             }
         });
@@ -99,10 +98,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
     @Override
     public void navigateToDetailRecipeActivity(Recipe recipe) {
         Intent intent = new Intent(this, SingleRecipeActivity.class);
-        intent.putExtra(Extras.ID, recipe.getId());
-        intent.putExtra(Extras.NAME, recipe.getName());
-        intent.putExtra(Extras.STEPS, recipe.getSteps());
-        intent.putExtra(Extras.IMAGE, recipe.getImageBlob().getBlob());
+        intent.putExtra(Data.ID, recipe.getId());
+        intent.putExtra(Data.NAME, recipe.getName());
+        intent.putExtra(Data.STEPS, recipe.getSteps());
+        intent.putExtra(Data.IMAGE, recipe.getImageBlob().getBlob());
         startActivityForResult(intent, RESTART_ACTIVITY);
     }
 

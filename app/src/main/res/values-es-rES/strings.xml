@@ -16,4 +16,7 @@
     <string name="main_activity_name">Inicio</string>
     <string name="detail_activity_name">Detalle</string>
     <string name="search">Buscar...</string>
+    <string name="success">Éxito</string>
+    <string name="updated">Actualizado</string>
+    <string name="deleted">Borrado</string>
 </resources>

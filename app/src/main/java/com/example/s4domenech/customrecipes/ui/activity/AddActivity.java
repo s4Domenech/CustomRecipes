@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,10 +19,10 @@ import com.example.s4domenech.customrecipes.datasource.device.CheckPermissionsIm
 import com.example.s4domenech.customrecipes.ui.presenter.AddPresenter;
 import com.example.s4domenech.customrecipes.R;
 
-public class AddActivity extends BaseActivity implements AddPresenter.view, AddPresenter.navigator {
+import static com.example.s4domenech.customrecipes.Data.REQUEST_CAMERA_PERMISSION;
+import static com.example.s4domenech.customrecipes.Data.REQUEST_IMAGE_CAPTURE;
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_CAMERA_PERMISSION = 2;
+public class AddActivity extends BaseActivity implements AddPresenter.View, AddPresenter.Navigator {
 
     AddPresenter presenter;
 
@@ -41,27 +40,27 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
         presenter.setNavigator(this);
 
         ibRecipe = findViewById(R.id.ib_recipe);
-        ibRecipe.setOnClickListener(new View.OnClickListener() {
+        ibRecipe.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.imageButtonClicked();
             }
         });
 
         btnAccept = findViewById(R.id.btn_ok);
-        btnAccept.setOnClickListener(new View.OnClickListener() {
+        btnAccept.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Bitmap bitmap = ((BitmapDrawable)ibRecipe.getDrawable()).getBitmap();
+            public void onClick(android.view.View v) {
+                Bitmap bitmap = ((BitmapDrawable) ibRecipe.getDrawable()).getBitmap();
 
                 presenter.acceptButtonClicked(bitmap, etName.getText().toString(), etSteps.getText().toString());
             }
         });
 
         btnCancel = findViewById(R.id.btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(android.view.View v) {
                 presenter.cancelButtonClicked();
             }
         });
@@ -93,9 +92,11 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults, REQUEST_CAMERA_PERMISSION);
+        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override

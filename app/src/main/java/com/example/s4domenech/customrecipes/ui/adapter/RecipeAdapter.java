@@ -1,7 +1,7 @@
 package com.example.s4domenech.customrecipes.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +46,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(RecipeViewHolder holder, final int position) {
+    public void onBindViewHolder(RecipeViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.name.setText(recipes.get(position).getName());
 
         Bitmap bm = blobConverter.blobToBitmap(recipes.get(position).getImageBlob());
@@ -59,7 +59,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             }
         });
     }
-    
+
     @Override
     public int getItemCount() {
         return recipes.size();
