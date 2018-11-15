@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import com.example.s4domenech.customrecipes.R;
-import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.usecase.BlobConverter;
 import com.example.s4domenech.customrecipes.usecase.CheckPermissions;
@@ -24,7 +23,7 @@ public class AddPresenter extends Presenter<AddPresenter.View, AddPresenter.Navi
     CheckPermissions checkPermissions;
     BlobConverter blobConverter;
 
-    public AddPresenter(Context context, DBImpl database,
+    public AddPresenter(Context context, DB database,
                         CheckPermissions checkPermissions, BlobConverter blobConverter) {
         this.context = context;
         this.database = database;

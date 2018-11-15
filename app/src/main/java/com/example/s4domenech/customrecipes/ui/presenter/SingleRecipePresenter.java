@@ -27,7 +27,7 @@ public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.View,
 
     @Override
     public void initialize() {
-
+        recipe = new Recipe();
     }
 
     public void onExtrasReceived(Intent intent) {
@@ -36,7 +36,6 @@ public class SingleRecipePresenter extends Presenter<SingleRecipePresenter.View,
         String steps = intent.getExtras().getString(Data.STEPS);
         byte[] imageBytes = intent.getExtras().getByteArray(Data.IMAGE);
 
-        recipe = new Recipe();
         recipe.setId(id);
         recipe.setName(name);
         recipe.setSteps(steps);

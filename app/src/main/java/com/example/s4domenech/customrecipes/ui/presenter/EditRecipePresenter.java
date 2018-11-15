@@ -36,7 +36,7 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.View, Edi
 
     @Override
     public void initialize() {
-
+        recipe = new Recipe();
     }
 
     public void onExtrasReceived(Intent intent) {
@@ -45,7 +45,6 @@ public class EditRecipePresenter extends Presenter<EditRecipePresenter.View, Edi
         String steps = intent.getExtras().getString(Data.STEPS);
         byte[] imageBytes = intent.getExtras().getByteArray(Data.IMAGE);
 
-        recipe = new Recipe();
         recipe.setId(id);
         recipe.setName(name);
         recipe.setSteps(steps);

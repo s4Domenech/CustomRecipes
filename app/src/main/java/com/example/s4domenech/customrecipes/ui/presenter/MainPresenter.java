@@ -2,7 +2,6 @@ package com.example.s4domenech.customrecipes.ui.presenter;
 
 import android.content.Context;
 
-import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.usecase.DB;
 
@@ -13,7 +12,7 @@ public class MainPresenter extends Presenter<MainPresenter.View, MainPresenter.N
     Context context;
     DB database;
 
-    public MainPresenter(Context context, DBImpl database) {
+    public MainPresenter(Context context, DB database) {
         this.context = context;
         this.database = database;
     }
