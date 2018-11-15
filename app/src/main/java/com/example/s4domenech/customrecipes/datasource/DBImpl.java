@@ -2,6 +2,7 @@ package com.example.s4domenech.customrecipes.datasource;
 
 import android.content.Context;
 
+import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe_Table;
 import com.example.s4domenech.customrecipes.usecase.DB;
@@ -14,7 +15,10 @@ import java.util.List;
 
 public class DBImpl implements DB {
 
+    Context context;
+
     public DBImpl(Context context) {
+        this.context = context;
         FlowManager.init(new FlowConfig.Builder(context).build());
     }
 
@@ -23,7 +27,7 @@ public class DBImpl implements DB {
         if (recipe.save()) {
             listener.onSuccess();
         } else {
-            listener.onError("Couldn't save to database");
+            listener.onError(context.getString(R.string.error_save));
         }
     }
 
@@ -33,7 +37,7 @@ public class DBImpl implements DB {
         if (recipes.size() != 0) {
             listener.onSuccess(recipes);
         } else {
-            listener.onError("Empty");
+            listener.onError(context.getString(R.string.empty));
         }
     }
 
@@ -44,7 +48,7 @@ public class DBImpl implements DB {
             recipes = new Select().from(Recipe.class).where(Recipe_Table.name.like("%" + query + "%")).queryList();
             listener.onSuccess(recipes);
         } else {
-            listener.onError("Empty");
+            listener.onError(context.getString(R.string.empty));
         }
     }
 
@@ -54,7 +58,7 @@ public class DBImpl implements DB {
             SQLite.delete().from(Recipe.class).where(Recipe_Table.id.eq(recipe.getId())).async().execute();
             listener.onSuccess();
         } else {
-            listener.onError("Error deleting");
+            listener.onError(context.getString(R.string.error_delete));
         }
     }
 
@@ -68,7 +72,7 @@ public class DBImpl implements DB {
                 .execute();
             listener.onSuccess();
         } else {
-            listener.onError("Error updating");
+            listener.onError(context.getString(R.string.error_update));
         }
     }
 }

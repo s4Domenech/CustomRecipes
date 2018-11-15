@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.s4domenech.customrecipes.Extras;
 import com.example.s4domenech.customrecipes.R;
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
@@ -66,7 +67,7 @@ public class SingleRecipeActivity extends BaseActivity implements SingleRecipePr
 
     @Override
     protected String titleToolbar() {
-        return "Detail";
+        return getString(R.string.detail_activity_name);
     }
 
     @Override
@@ -92,10 +93,10 @@ public class SingleRecipeActivity extends BaseActivity implements SingleRecipePr
     @Override
     public void navigateToEditActivity(Recipe recipe) {
         Intent intent = new Intent(this, EditRecipeActivity.class);
-        intent.putExtra("id", recipe.getId());
-        intent.putExtra("name", recipe.getName());
-        intent.putExtra("steps", recipe.getSteps());
-        intent.putExtra("blobImage", recipe.getImageBlob().getBlob());
+        intent.putExtra(Extras.ID, recipe.getId());
+        intent.putExtra(Extras.NAME, recipe.getName());
+        intent.putExtra(Extras.STEPS, recipe.getSteps());
+        intent.putExtra(Extras.IMAGE, recipe.getImageBlob().getBlob());
         startActivityForResult(intent, RESTART_ACTIVITY);
     }
 

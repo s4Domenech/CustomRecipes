@@ -79,7 +79,7 @@ public class AddActivity extends BaseActivity implements AddPresenter.view, AddP
 
     @Override
     protected String titleToolbar() {
-        return "Add";
+        return getString(R.string.add_activity_name);
     }
 
     @Override

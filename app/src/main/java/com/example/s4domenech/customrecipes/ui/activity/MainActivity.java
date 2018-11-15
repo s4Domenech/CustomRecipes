@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.s4domenech.customrecipes.Extras;
 import com.example.s4domenech.customrecipes.datasource.BlobConverterImpl;
 import com.example.s4domenech.customrecipes.datasource.DBImpl;
 import com.example.s4domenech.customrecipes.datasource.database.Recipe;
@@ -71,7 +72,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
 
     @Override
     protected String titleToolbar() {
-        return "Home";
+        return getString(R.string.main_activity_name);
     }
 
     @Override
@@ -98,10 +99,10 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
     @Override
     public void navigateToDetailRecipeActivity(Recipe recipe) {
         Intent intent = new Intent(this, SingleRecipeActivity.class);
-        intent.putExtra("id", recipe.getId());
-        intent.putExtra("name", recipe.getName());
-        intent.putExtra("steps", recipe.getSteps());
-        intent.putExtra("blobImage", recipe.getImageBlob().getBlob());
+        intent.putExtra(Extras.ID, recipe.getId());
+        intent.putExtra(Extras.NAME, recipe.getName());
+        intent.putExtra(Extras.STEPS, recipe.getSteps());
+        intent.putExtra(Extras.IMAGE, recipe.getImageBlob().getBlob());
         startActivityForResult(intent, RESTART_ACTIVITY);
     }
 
@@ -130,7 +131,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.view, Ma
         }
         if (searchView != null) {
             EditText txtSearch = (searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text));
-            txtSearch.setHint("Search...");
+            txtSearch.setHint(getString(R.string.search));
             txtSearch.setHintTextColor(Color.BLACK);
 
             searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));

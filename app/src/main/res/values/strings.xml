@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">CustomRecipes</string>
+    <string name="name">Name</string>
+    <string name="steps">Steps</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="error_save">Couldn\'t save to database</string>
+    <string name="empty">No recipes</string>
+    <string name="error_delete">Error deleting</string>
+    <string name="error_update">Error updating</string>
+    <string name="add_activity_name">Add recipe</string>
+    <string name="edit_activity_name">Edit</string>
+    <string name="main_activity_name">Home</string>
+    <string name="detail_activity_name">Detail</string>
+    <string name="search">Search...</string>
 </resources>

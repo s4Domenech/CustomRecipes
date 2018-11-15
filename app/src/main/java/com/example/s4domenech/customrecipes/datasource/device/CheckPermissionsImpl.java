@@ -1,6 +1,5 @@
 package com.example.s4domenech.customrecipes.datasource.device;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;

@@ -76,7 +76,7 @@ public class EditRecipeActivity extends BaseActivity implements EditRecipePresen
 
     @Override
     protected String titleToolbar() {
-        return "Edit";
+        return getString(R.string.edit_activity_name);
     }
 
     @Override
